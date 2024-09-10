@@ -31,7 +31,7 @@
   "panels": [
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "victoriametrics",
         "uid": "victoriametrics"
       },
       "fieldConfig": {
@@ -83,12 +83,12 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
+            "type": "victoriametrics",
             "uid": "victoriametrics"
           },
           "groupBy": [],
           "limit": "1",
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -119,7 +119,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "victoriametrics",
         "uid": "victoriametrics"
       },
       "fieldConfig": {
@@ -244,7 +244,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
+            "type": "victoriametrics",
             "uid": "victoriametrics"
           },
           "groupBy": [
@@ -261,7 +261,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -342,7 +342,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "victoriametrics",
         "uid": "victoriametrics"
       },
       "fieldConfig": {
@@ -394,12 +394,12 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
+            "type": "victoriametrics",
             "uid": "victoriametrics"
           },
           "groupBy": [],
           "limit": "1",
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "DESC",
           "policy": "default",
           "refId": "A",
@@ -429,7 +429,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "victoriametrics",
         "uid": "victoriametrics"
       },
       "fieldConfig": {
@@ -481,7 +481,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
+            "type": "victoriametrics",
             "uid": "victoriametrics"
           },
           "groupBy": [
@@ -492,7 +492,7 @@
               "type": "time"
             }
           ],
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -532,7 +532,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "victoriametrics",
         "uid": "victoriametrics"
       },
       "fieldConfig": {
@@ -586,7 +586,7 @@
         {
           "alias": "$col",
           "datasource": {
-            "type": "prometheus",
+            "type": "victoriametrics",
             "uid": "victoriametrics"
           },
           "groupBy": [
@@ -597,7 +597,7 @@
               "type": "time"
             }
           ],
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -658,7 +658,6 @@
             "binary": {
               "left": "Max elevation",
               "operator": "-",
-              "reducer": "sum",
               "right": "Min elevation"
             },
             "mode": "reduceRow",
@@ -677,7 +676,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "victoriametrics",
         "uid": "victoriametrics"
       },
       "fieldConfig": {
@@ -731,7 +730,7 @@
         {
           "alias": "$col",
           "datasource": {
-            "type": "prometheus",
+            "type": "victoriametrics",
             "uid": "victoriametrics"
           },
           "groupBy": [
@@ -742,7 +741,7 @@
               "type": "time"
             }
           ],
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -849,7 +848,7 @@
           "value": "route-2019-09-24-1-07pm"
         },
         "datasource": {
-          "type": "prometheus",
+          "type": "victoriametrics",
           "uid": "victoriametrics"
         },
         "definition": "label_values(workout_routes, workout)",
