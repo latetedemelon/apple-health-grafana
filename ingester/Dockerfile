@@ -1,9 +1,7 @@
-FROM python:3.12-alpine
+FROM python:3.20-alpine
 
 # Set environment variables
-ENV INFLUX_TOKEN=${INFLUX_TOKEN} \
-    INFLUX_ORG=${INFLUX_ORG} \
-    INFLUX_BUCKET=${INFLUX_BUCKET}
+ENV VICTORIAMETRICS_URL=${VICTORIAMETRICS_URL}
 
 # Copy requirements file and install dependencies
 COPY requirements.txt .
