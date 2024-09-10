@@ -1,37 +1,35 @@
-version: "3"
-
 services:
-
   grafana:
-    image: grafana/grafana:10.3.3
+    image: k0rventen/apple-health-grafana-grafana:v0.5.0
     ports:
       - 3000:3000
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=health
-      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/dashs/specific-metrics.json
-    volumes:
-      - ./provisioning:/etc/grafana/provisioning
 
-  influx:
-    image: influxdb:2.6
+  # VictoriaMetrics instance, a single process responsible for
+  # storing metrics and serve read requests.
+  victoriametrics:
+    container_name: victoriametrics
+    image: victoriametrics/victoria-metrics:v1.103.0
     ports:
-      - 8086:8086
-    environment:
-      - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME=admin
-      - DOCKER_INFLUXDB_INIT_PASSWORD=health
-      - DOCKER_INFLUXDB_INIT_ORG=my-org
-      - DOCKER_INFLUXDB_INIT_BUCKET=my-bucket
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-token
+      - 8428:8428
+      - 8089:8089
+      - 8089:8089/udp
+      - 2003:2003
+      - 2003:2003/udp
+      - 4242:4242
     volumes:
-      - ./influx-data:/var/lib/influxdb2
+      - ./vmdata:/storage
+    command:
+      - "--storageDataPath=/storage"
+      - "--graphiteListenAddr=:2003"
+      - "--opentsdbListenAddr=:4242"
+      - "--httpListenAddr=:8428"
+      - "--influxListenAddr=:8089"
+      - "--vmalert.proxyURL=http://vmalert:8880"
+    restart: always
 
   ingester:
-    image: k0rventen/apple-health-grafana-ingester
-    volumes:
-      - ./apple_export/export.zip>:/export.zip
+    image: k0rventen/apple-health-grafana-ingester:v0.5.0
     environment:
-      - INFLUX_TOKEN=my-token
-      - INFLUX_ORG=my-org
-      - INFLUX_BUCKET=my-bucket
+      - VICTORIAMETRICS_URL=http://victoriametrics:8428
+    volumes:
+      - <local_path_to_export.zip>:/export.zip
