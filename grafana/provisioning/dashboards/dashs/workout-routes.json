@@ -31,8 +31,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "influx"
+        "type": "victoriametrics",
+        "uid": "victoriametrics"
       },
       "fieldConfig": {
         "defaults": {
@@ -83,12 +83,12 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "influx"
+            "type": "victoriametrics",
+            "uid": "victoriametrics"
           },
           "groupBy": [],
           "limit": "1",
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -119,8 +119,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "influx"
+        "type": "victoriametrics",
+        "uid": "victoriametrics"
       },
       "fieldConfig": {
         "defaults": {
@@ -244,8 +244,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "influx"
+            "type": "victoriametrics",
+            "uid": "victoriametrics"
           },
           "groupBy": [
             {
@@ -261,7 +261,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -342,8 +342,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "influx"
+        "type": "victoriametrics",
+        "uid": "victoriametrics"
       },
       "fieldConfig": {
         "defaults": {
@@ -394,12 +394,12 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "influx"
+            "type": "victoriametrics",
+            "uid": "victoriametrics"
           },
           "groupBy": [],
           "limit": "1",
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "DESC",
           "policy": "default",
           "refId": "A",
@@ -429,8 +429,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "influx"
+        "type": "victoriametrics",
+        "uid": "victoriametrics"
       },
       "fieldConfig": {
         "defaults": {
@@ -481,8 +481,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "influx"
+            "type": "victoriametrics",
+            "uid": "victoriametrics"
           },
           "groupBy": [
             {
@@ -492,7 +492,7 @@
               "type": "time"
             }
           ],
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -532,8 +532,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "influx"
+        "type": "victoriametrics",
+        "uid": "victoriametrics"
       },
       "fieldConfig": {
         "defaults": {
@@ -586,8 +586,8 @@
         {
           "alias": "$col",
           "datasource": {
-            "type": "influxdb",
-            "uid": "influx"
+            "type": "victoriametrics",
+            "uid": "victoriametrics"
           },
           "groupBy": [
             {
@@ -597,7 +597,7 @@
               "type": "time"
             }
           ],
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -658,7 +658,6 @@
             "binary": {
               "left": "Max elevation",
               "operator": "-",
-              "reducer": "sum",
               "right": "Min elevation"
             },
             "mode": "reduceRow",
@@ -677,8 +676,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "influx"
+        "type": "victoriametrics",
+        "uid": "victoriametrics"
       },
       "fieldConfig": {
         "defaults": {
@@ -731,8 +730,8 @@
         {
           "alias": "$col",
           "datasource": {
-            "type": "influxdb",
-            "uid": "influx"
+            "type": "victoriametrics",
+            "uid": "victoriametrics"
           },
           "groupBy": [
             {
@@ -742,7 +741,7 @@
               "type": "time"
             }
           ],
-          "measurement": "workout-routes",
+          "measurement": "workout_routes",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -849,21 +848,11 @@
           "value": "route-2019-09-24-1-07pm"
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "influx"
+          "type": "victoriametrics",
+          "uid": "victoriametrics"
         },
-        "definition": "SHOW TAG VALUES WITH KEY = \"workout\"",
-        "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "workout",
-        "options": [],
-        "query": "SHOW TAG VALUES WITH KEY = \"workout\"",
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 1,
-        "type": "query"
+        "definition": "label_values(workout_routes, workout)",
+        "query": "label_values(workout_routes, workout)"
       }
     ]
   },
