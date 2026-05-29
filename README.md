@@ -1,3 +1,9 @@
+> **Part of the Personal Health Data Platform** (hub: `Healthkit-influxdb-grafana`).
+> This importer now writes to **VictoriaMetrics** via the InfluxDB line protocol and tags
+> every series `provider=apple, ingest=export`, so your Apple Health history can share one
+> store and one Grafana with ResMed, Fitbit, Google and Renpho. See the hub's
+> `docs/ARCHITECTURE.md` for the data conventions.
+
 # Apple Health Grafana
 
 Tool to import your Apple Health Data in Influx and visualize them in Grafana.
