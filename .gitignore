@@ -1,2 +1,5 @@
 export.zip
 apple_health_export/
+__pycache__/
+*.pyc
+/export/

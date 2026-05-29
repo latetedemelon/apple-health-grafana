@@ -1,7 +1,8 @@
-FROM python:3.20-alpine
+FROM python:3.12-slim
 
-# Set environment variables
-ENV VICTORIAMETRICS_URL=${VICTORIAMETRICS_URL}
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
 
 # Copy requirements file and install dependencies
 COPY requirements.txt .

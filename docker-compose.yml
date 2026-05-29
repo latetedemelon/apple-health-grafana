@@ -1,35 +1,33 @@
 services:
   grafana:
-    image: k0rventen/apple-health-grafana-grafana:v0.5.0
+    build: ./grafana
     ports:
       - 3000:3000
+    depends_on:
+      - victoriametrics
 
-  # VictoriaMetrics instance, a single process responsible for
-  # storing metrics and serve read requests.
+  # VictoriaMetrics: single-node time series database (InfluxDB line protocol in).
   victoriametrics:
     container_name: victoriametrics
     image: victoriametrics/victoria-metrics:v1.103.0
     ports:
       - 8428:8428
-      - 8089:8089
-      - 8089:8089/udp
-      - 2003:2003
-      - 2003:2003/udp
-      - 4242:4242
     volumes:
       - ./vmdata:/storage
     command:
       - "--storageDataPath=/storage"
-      - "--graphiteListenAddr=:2003"
-      - "--opentsdbListenAddr=:4242"
       - "--httpListenAddr=:8428"
-      - "--influxListenAddr=:8089"
-      - "--vmalert.proxyURL=http://vmalert:8880"
+      - "--influxSkipSingleField"   # measurement,tags value=X -> clean metric name
+      - "--retentionPeriod=100y"    # Apple exports can span many years of history
     restart: always
 
   ingester:
-    image: k0rventen/apple-health-grafana-ingester:v0.5.0
+    build: ./ingester
+    depends_on:
+      - victoriametrics
     environment:
-      - VICTORIAMETRICS_URL=http://victoriametrics:8428
+      - VICTORIA_METRICS_URL=http://victoriametrics:8428
+      - PROVIDER=apple
     volumes:
-      - <local_path_to_export.zip>:/export.zip
+      # Replace the left side with the path to your Apple Health export.zip
+      - ./apple_export/export.zip:/export.zip
